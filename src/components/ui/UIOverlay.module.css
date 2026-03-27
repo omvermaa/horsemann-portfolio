@@ -2,34 +2,32 @@
   width: 100vw;
 }
 
-.nav {
+.bottomNav {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding: 2rem 4rem;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #18181A; /* Dark sleek pill */
+  padding: 0.6rem 0.6rem 0.6rem 2.5rem;
+  border-radius: 50px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 3rem;
   z-index: 100;
-  pointer-events: auto; /* Let nav be clickable */
+  pointer-events: auto;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.logo {
-  font-weight: 700;
-  font-size: 1.2rem;
-  letter-spacing: 1px;
-  color: var(--text-primary);
-}
-
-.menuItems {
+.navMenu {
   display: flex;
-  gap: 2rem;
+  gap: 1.5rem;
 }
 
 .navLink {
-  font-size: 0.9rem;
-  color: var(--text-secondary);
+  color: #EAEAEA;
+  font-size: 0.95rem;
+  font-weight: 500;
   transition: color 0.3s ease;
   position: relative;
 }
@@ -38,36 +36,91 @@
   color: var(--accent-gold);
 }
 
+.navContactBtn {
+  background: var(--accent-gold);
+  color: #18181A;
+  padding: 0.8rem 2rem;
+  border-radius: 40px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.navContactBtn:hover {
+  transform: scale(1.05);
+  background: #f0a924; /* Brighter orange hover */
+}
+
 .scrollProxy {
   position: relative;
   width: 100%;
 }
 
 .heroSection {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  pointer-events: none; /* Passes clicks through to Canvas if needed */
+  padding: 0 2rem;
+  pointer-events: none;
+  position: relative;
 }
 
-.heroTitle {
-  font-size: clamp(3rem, 6vw, 6rem);
-  font-weight: 700;
-  letter-spacing: -2px;
-  margin-bottom: 1rem;
-  color: var(--text-primary);
-  text-shadow: 0 4px 12px rgba(0,0,0,0.5);
+/* --- Beautiful Split Hero Layout (Reference Frame) --- */
+.heroTitleContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 1200px; /* Reduced from 1600px to pull text inward from extreme edges */
+  margin: 0 auto;
+  gap: 1rem;
+  z-index: 10;
+  position: relative;
 }
 
-.heroSubtitle {
-  font-size: clamp(1rem, 2vw, 1.5rem);
+.heroSide {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.heroSide:first-child {
+  align-items: flex-end;
+  text-align: right;
+  padding-right: 1.5rem;
+}
+
+.heroSide:last-child {
+  align-items: flex-start;
+  text-align: left;
+  padding-left: 1.5rem;
+}
+
+.heroSideLabel {
+  font-size: clamp(0.85rem, 1vw, 1rem);
   color: var(--text-secondary);
-  max-width: 600px;
-  margin-bottom: 3rem;
-  font-weight: 300;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.heroTitlePart {
+  font-size: clamp(3rem, 5.5vw, 6.5rem); /* Slimmed font size so it doesn't stretch to the walls */
+  font-weight: 800;
+  letter-spacing: -3px;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1;
+}
+
+.heroCardSpacer {
+  width: clamp(260px, 25vw, 360px); /* Tighter physical spacer wrapping the card closely */
+  height: clamp(350px, 50vh, 450px);
+  flex-shrink: 0;
 }
 
 .ctaButton {
@@ -174,7 +227,10 @@
   align-items: center;
   pointer-events: none;
   padding: 8rem 2rem 4rem;
-  background: linear-gradient(to bottom, transparent, rgba(11, 11, 13, 0.9) 15%, rgba(11, 11, 13, 1));
+  /* Solid light background elegantly slides up over the 3D Canvas */
+  background: var(--bg-primary); 
+  position: relative;
+  z-index: 30;
 }
 
 .sectionTitle {
@@ -195,32 +251,41 @@
 }
 
 .projectCard {
-  background: rgba(17, 17, 20, 0.6);
+  background: var(--bg-secondary);
   border: 1px solid var(--border-color);
-  backdrop-filter: blur(16px);
-  border-radius: 12px;
+  border-radius: 20px;
   overflow: hidden;
-  transition: transform 0.3s ease, border-color 0.3s ease;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
 }
 
 .projectCard:hover {
   transform: translateY(-8px);
   border-color: var(--accent-gold);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08); /* Stronger shadow on hover */
 }
 
 .projectImage {
   width: 100%;
-  height: 240px;
-  background: rgba(255, 255, 255, 0.03); /* Placeholder for Video/3D */
+  height: 260px;
+  background: #E4E4E7; 
   display: flex;
   justify-content: center;
   align-items: center;
-  color: var(--text-secondary);
-  font-size: 0.85rem;
-  letter-spacing: 1px;
-  text-transform: uppercase;
+  overflow: hidden;
   border-bottom: 1px solid var(--border-color);
+}
+
+.projectImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.projectCard:hover .projectImage img {
+  transform: scale(1.05); /* Slight zoom effect */
 }
 
 .projectInfo {
@@ -240,7 +305,7 @@
 }
 
 .feedbackSection {
-  background: rgba(11, 11, 13, 1); /* Solid dark for footer transition */
+  background: var(--bg-primary); /* Continuous light theme */
 }
 
 .feedbackGrid {
@@ -253,17 +318,18 @@
 }
 
 .feedbackCard {
-  background: rgba(90, 141, 238, 0.05); /* Subtle AI blue tint */
-  border: 1px solid rgba(90, 141, 238, 0.15);
-  backdrop-filter: blur(16px);
-  border-radius: 12px;
-  padding: 2.5rem 2rem;
-  transition: transform 0.3s ease;
+  background: var(--bg-secondary); /* White cards */
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 3rem 2.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
+  text-align: center;
 }
 
 .feedbackCard:hover {
   transform: translateY(-5px);
-  border-color: rgba(90, 141, 238, 0.4);
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.08);
 }
 
 .feedbackText {
@@ -282,11 +348,89 @@
   letter-spacing: 1px;
 }
 
+/* --- Sticky Stacking Services Cards (Reference Match) --- */
+.servicesStack {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 15vh 4rem 10vh;
+  display: flex;
+  justify-content: flex-start; /* Cards sit on the left, 3D on the right */
+  pointer-events: auto;
+  position: relative;
+  z-index: 20;
+}
+
+.cardsList {
+  width: 50%;
+  position: relative;
+  padding-bottom: 20vh;
+}
+
+.serviceCardStack {
+  background: var(--bg-secondary);
+  border-radius: 40px;
+  padding: 4rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05); /* Soft light shadow */
+  position: sticky;
+  margin-bottom: -15vh; /* Creates the overlapping stack effect as you scroll */
+  border: 1px solid rgba(0,0,0,0.02);
+  transform-origin: top center;
+}
+
+.serviceCategory {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  font-style: italic;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.serviceTitleStack {
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 2rem;
+  letter-spacing: -1px;
+}
+
+.serviceDescStack {
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+@media (max-width: 1024px) {
+  .cardsList {
+    width: 65%;
+  }
+}
+
 @media (max-width: 768px) {
-  .nav {
-    padding: 1.5rem;
+  .heroTitleContainer {
     flex-direction: column;
+    gap: 0;
+  }
+  
+  .heroSide {
+    align-items: center !important;
+    text-align: center !important;
+    margin-bottom: 2rem;
+  }
+  
+  .heroCardSpacer {
+    height: 40vh;
+    width: 80vw;
+  }
+
+  .bottomNav {
+    width: 90%;
     gap: 1rem;
+    padding: 0.5rem 0.5rem 0.5rem 1.5rem;
+    justify-content: space-between;
+  }
+  
+  .navContactBtn {
+    padding: 0.8rem 1.2rem;
   }
   
   .contactPanel {

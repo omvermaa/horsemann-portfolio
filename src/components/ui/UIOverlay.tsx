@@ -4,6 +4,14 @@ import styles from "./UIOverlay.module.css";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useEffect, useState } from "react";
 
+const servicesData = [
+  { id: "01", category: "Web Ecosystem", title: "WebApp Development", desc: "I design and build web applications that are responsive, high-performance, and visually premium. Every system is built for usability, speed, and modern design." },
+  { id: "02", category: "Growth & Reach", title: "Digital Marketing", desc: "Data-driven marketing strategies designed to maximize reach, conversions, and measurable ROI. I focus on scope, flows, and aligning features with actual users." },
+  { id: "03", category: "Audience Building", title: "Social Media", desc: "Content systems and growth strategies that turn attention into engagement and absolute brand loyalty." },
+  { id: "04", category: "Automated Conversion", title: "AI Receptionist Agent", desc: "24/7 intelligent agents built specifically for handling customer queries, lead qualification, and robust sales interactions." },
+  { id: "05", category: "Brand Identity", title: "Graphic Designing", desc: "Visual identities and creatives crafted specifically to communicate absolute clarity, trust, and premium impact." },
+];
+
 export default function UIOverlay() {
   const { scrollYProgress } = useScroll();
   const [mounted, setMounted] = useState(false);
@@ -21,54 +29,97 @@ export default function UIOverlay() {
   return (
     <div className={styles.overlayContainer}>
       
-      {/* Floating Header / Navigation System */}
-      <nav className={styles.nav}>
-        <div className={styles.logo}>The Horsemann</div>
-        <div className={styles.menuItems}>
+      {/* Floating Bottom Navigation Pill */}
+      <nav className={styles.bottomNav}>
+        <div className={styles.navMenu}>
           <a href="#services" className={styles.navLink}>Services</a>
-          <a href="#work" className={styles.navLink}>Work</a>
-          <a href="#contact" className={styles.navLink}>Contact</a>
+          <a href="#work" className={styles.navLink}>Portfolio</a>
+          <a href="#feedbacks" className={styles.navLink}>Reviews</a>
         </div>
+        <a href="#contact" className={styles.navContactBtn}>Contact me</a>
       </nav>
 
       {/* Hero Section Container (Scrollable distance proxy) */}
       <div className={styles.scrollProxy}>
         
-        {/* Hero Section */}
-        <motion.section 
-          className={styles.heroSection}
-          style={{ opacity: heroOpacity, y: heroY }}
-        >
-          <motion.h1 
-            className={styles.heroTitle}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.5 }}
-          >
-            The Horsemann
-          </motion.h1>
-          <motion.p 
-            className={styles.heroSubtitle}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.8 }}
-          >
-            Powering Digital Growth with Precision
-          </motion.p>
-          
-          <motion.button 
+        {/* Hero Section Container (Scrollable distance proxy) */}
+      <motion.section 
+        className={styles.heroSection}
+        style={{ opacity: heroOpacity, y: heroY }}
+      >
+        <div className={styles.heroDarkOverlay} />
+        <div className={styles.heroTitleContainer}>
+          {/* Left Block */}
+          <div className={styles.heroSide}>
+            <motion.p 
+              className={styles.heroSideLabel}
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1, delay: 0.1 }}
+            >
+              Award Winning Agency
+            </motion.p>
+            <motion.h1 
+              className={styles.heroTitlePart}
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1, delay: 0.2 }}
+            >
+              HORSE
+            </motion.h1>
+          </div>
+
+          {/* Center 3D Card Spacer */}
+          <div className={styles.heroCardSpacer}></div>
+
+          {/* Right Block */}
+          <div className={styles.heroSide}>
+            <motion.p 
+              className={styles.heroSideLabel}
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1, delay: 0.1 }}
+            >
+              Digital Intelligence
+            </motion.p>
+            <motion.h1 
+              className={styles.heroTitlePart}
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1, delay: 0.2 }}
+            >
+              MANN
+            </motion.h1>
+          </div>
+        </div>
+
+        <motion.button 
             className={styles.ctaButton}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 1.2 }}
             onClick={() => window.scrollTo({ top: window.innerHeight * 1.2, behavior: 'smooth'})}
           >
-            → Enter Experience
+            → View Services
           </motion.button>
         </motion.section>
 
-        {/* --- Spacer for spatial 3D scroll (e.g. 600vh total) --- */}
-        <div style={{ height: '600vh' }}></div>
+        {/* --- New Stacked Sticky Services Section --- */}
+        <section id="services" className={styles.servicesStack}>
+          <div className={styles.cardsList}>
+            {servicesData.map((svc, index) => (
+              <div 
+                key={svc.id} 
+                className={styles.serviceCardStack}
+                style={{ top: `calc(15vh + ${index * 2}0px)` }} // Stacks exactly like reference
+              >
+                <span className={styles.serviceCategory}>{svc.category}</span>
+                <h2 className={styles.serviceTitleStack}>{svc.id}. {svc.title}</h2>
+                <p className={styles.serviceDescStack}>{svc.desc}</p>
+              </div>
+            ))}
+          </div>
+        </section>
 
         {/* Selected Works Section */}
         <section id="work" className={styles.workSection}>
@@ -85,10 +136,12 @@ export default function UIOverlay() {
                 transition={{ duration: 0.6, delay: item * 0.1 }}
                 viewport={{ once: true }}
               >
-                <div className={styles.projectImage}>[ 3D / Video Placeholder ]</div>
+                <div className={styles.projectImage}>
+                  <img src={`https://picsum.photos/seed/portfolio${item}/800/600`} alt={`Selected Work ${item}`} />
+                </div>
                 <div className={styles.projectInfo}>
-                  <h3 className={styles.projectTitle}>Project {item}</h3>
-                  <p className={styles.projectDesc}>High-performance digital solution delivering measurable results and premium branding.</p>
+                  <h3 className={styles.projectTitle}>Alpha Protocol v{item}.0</h3>
+                  <p className={styles.projectDesc}>Engineered a scalable digital infrastructure combining cutting-edge design with measurable performance metrics.</p>
                 </div>
               </motion.div>
             ))}
@@ -118,7 +171,7 @@ export default function UIOverlay() {
         </section>
 
         {/* Contact Section at the bottom */}
-        <section id="contact" className={styles.contactSection} style={{ background: '#0B0B0D' }}>
+        <section id="contact" className={styles.contactSection} style={{ background: 'var(--bg-secondary)', paddingBottom: '10rem' }}>
           <div className={styles.contactPanel}>
             <h2 className={styles.contactTitle}>Start Your Project</h2>
             <p className={styles.contactDesc}>Secure continuous intelligence for your business.</p>

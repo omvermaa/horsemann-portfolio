@@ -1,11 +1,11 @@
 :root {
-  --bg-primary: #0B0B0D;
-  --bg-secondary: #111114;
-  --accent-gold: #C6A15B;
-  --accent-blue: #5A8DEE;
-  --text-primary: #EAEAEA;
-  --text-secondary: #A0A0A5;
-  --border-color: rgba(255, 255, 255, 0.08);
+  --bg-primary: #F4F4F5; /* Soft light grey background */
+  --bg-secondary: #FFFFFF; /* Pure white cards */
+  --accent-gold: #ECA322; /* Warmer orange/gold */
+  --accent-blue: #3A7DE8; 
+  --text-primary: #18181A; /* Near black text */
+  --text-secondary: #71717A; /* Muted grey text */
+  --border-color: rgba(0, 0, 0, 0.06); /* Subtle dark borders */
 
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }

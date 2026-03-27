@@ -17,6 +17,11 @@ export default function CameraRig() {
 
     const tl = timeline.current;
     
+    // Hard-reset the camera position to pristine defaults before building the GSAP timeline.
+    // This fixes a Next.js HMR bug where the camera's hot-reloaded state corrupts the target GSAP coordinates.
+    camera.position.set(0, 0, 10);
+    camera.rotation.set(0, 0, 0);
+    
     // Clear existing tweens if re-running
     tl.clear();
     
@@ -79,30 +84,6 @@ export default function CameraRig() {
       window.removeEventListener('scroll', handleScroll);
     };
   }, [camera]);
-
-  // Add subtle parallax based on mouse
-  const mouse = useRef(new THREE.Vector2());
-  const target = useRef(new THREE.Vector2());
-  const windowHalfX = typeof window !== 'undefined' ? window.innerWidth / 2 : 0;
-  const windowHalfY = typeof window !== 'undefined' ? window.innerHeight / 2 : 0;
-
-  useEffect(() => {
-    const onMouseMove = (event: MouseEvent) => {
-      mouse.current.x = (event.clientX - windowHalfX);
-      mouse.current.y = (event.clientY - windowHalfY);
-    };
-    window.addEventListener('mousemove', onMouseMove);
-    return () => window.removeEventListener('mousemove', onMouseMove);
-  }, [windowHalfX, windowHalfY]);
-
-  useFrame((state, delta) => {
-    // Base parallax for the camera lookAt or position
-    target.current.x = (mouse.current.x * 0.001);
-    target.current.y = (mouse.current.y * 0.001);
-
-    camera.rotation.y += 0.05 * (target.current.x - camera.rotation.y);
-    camera.rotation.x += 0.05 * (target.current.y - camera.rotation.x);
-  });
 
   return null;
 }
